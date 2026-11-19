@@ -1,19 +1,27 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider } from '@mui/material/styles';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
+import { theme } from './theme';
 
-// Placeholder UI; the dashboard arrives in phase 4.
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 1 } },
+});
+
 const root = document.getElementById('root');
 if (!root) throw new Error('Root element #root not found');
 
 createRoot(root).render(
   <StrictMode>
-    <CssBaseline />
-    <Typography variant="h5" component="h1" sx={{ p: 3 }}>
-      Service Status
-    </Typography>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );
