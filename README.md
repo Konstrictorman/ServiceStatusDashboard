@@ -155,7 +155,9 @@ AI output was wrong several times; these were caught by verification rather than
 
 ## Time
 
-Main time was about understanding the problem, discussing different approaches and planning.  After decisions were made I created a preliminar Figma design to help me have a graphic idea of how the application should look. Then I plan the steps to excuete.
+Main time was about understanding the problem, discussing different approaches and planning.  After decisions were made I created a preliminar Figma design to help me have a graphic idea of how the application should look. Then I plan the steps to execute.
+
 After plan was set, I executed it step by step.  I also invested an important amount of time identifying and understanding the generated code.
+
 Each step matched a commit: scaffold → shared contract → backend → frontend → docs.
 I can say that the test took me about 60 - 75 minutes.
