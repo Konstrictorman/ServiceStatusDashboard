@@ -109,7 +109,7 @@ npm workspaces in one repository: the frontend imports the same schemas the serv
 - **The server is the source of truth for timing.** The browser uses the `staleAfterMs` it receives rather than a copy that could drift.
 - **zod schemas shared by server and client.** One definition per shape: the server validates and serializes with it, the client parses every response so a mismatch fails loudly instead of rendering broken data.
 - **`unknown` ranks above `operational` but below `degraded`.** Data we can't confirm must not look healthy, but missing data isn't proof of an outage.
-- **MUI** for accessible, consistent components quickly. Cost: a larger bundle and Emotion's runtime styling (~98 kB gzipped JS today); worth revisiting if performance mattered.
+- **MUI** for accessible, consistent components quickly. Cost: a larger bundle and Emotion's runtime styling (about 174 kB of gzipped JavaScript today, mostly MUI and React); worth revisiting if performance mattered.
 - **TanStack Query** for polling, keeping data on failure and pausing in hidden tabs, instead of a hand-written hook.
 - **TypeScript 6.0, not 7.** typescript-eslint doesn't support 7 yet.
 - **The server runs through `tsx`** (no compile step). For production I'd bundle it (esbuild/tsup) and run plain `node`.
