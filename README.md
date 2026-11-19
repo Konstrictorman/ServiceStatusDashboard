@@ -144,7 +144,7 @@ Status is always an icon **and** a text label; status chips share a width so lis
 
 ## How AI was used
 
-AI (Claude) was used throughout as a pair: turning the brief into an architecture and scope, sketching the screens in Figma, scaffolding, writing code and tests in small reviewed steps, and running checks. Each step was planned first, verified (typecheck, lint, tests, a live run with screenshots) and committed separately.
+AI (Claude) was used throughout as a pair: turning the brief into an architecture and scope, sketching the screens in Figma, scaffolding, writing code and tests in small reviewed steps, and running checks. Each step was planned first, discussed, verified (typecheck, lint, tests, a live run with screenshots) and committed separately.
 
 AI output was wrong several times; these were caught by verification rather than trust:
 
@@ -155,4 +155,7 @@ AI output was wrong several times; these were caught by verification rather than
 
 ## Time
 
-Planning and the UI design (Figma sketches of each state) were done before starting the build. The build followed the plan in five committed steps: scaffold → shared contract → backend → frontend → docs.
+Main time was about understanding the problem, discussing different approaches and planning.  After decisions were made I created a preliminar Figma design to help me have a graphic idea of how the application should look. Then I plan the steps to excuete.
+After plan was set, I executed it step by step.
+Each step matched a commit: scaffold → shared contract → backend → frontend → docs.
+I can say that the test took me about 60 - 75 minutes.
