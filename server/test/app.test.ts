@@ -39,6 +39,7 @@ beforeEach(async () => {
   app = buildApp({
     repository,
     staleAfterMs: 30_000,
+    pollIntervalMs: 10_000,
     getLastPollAt: () => lastPollAt,
     now: () => at(15),
   });
@@ -56,6 +57,7 @@ describe('GET /api/services', () => {
     expect(res.headers[REQUEST_ID_HEADER]).toMatch(UUID);
     const body = ServicesResponse.parse(res.json());
     expect(body.overall).toBe('down');
+    expect(body).toMatchObject({ staleAfterMs: 30_000, pollIntervalMs: 10_000 });
     expect(body.services.map((s) => [s.id, s.status])).toEqual([
       ['payments', 'down'],
       ['ai', 'operational'],

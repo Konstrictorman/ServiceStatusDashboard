@@ -8,6 +8,8 @@ import { renderWithProviders } from './test/render';
 const services: ServicesResponse = {
   overall: 'down',
   generatedAt: '2026-11-19T14:10:05.000Z',
+  staleAfterMs: 30_000,
+  pollIntervalMs: 10_000,
   services: [
     {
       id: 'authentication',

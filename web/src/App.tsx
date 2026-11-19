@@ -16,11 +16,15 @@ export function App() {
   const events = useEvents();
   const now = useNow();
 
-  const stale = isClientStale({
-    isError: services.isError,
-    updatedAt: services.dataUpdatedAt,
-    now,
-  });
+  // The threshold comes from the server's response, so client and server always agree.
+  const stale =
+    services.data !== undefined &&
+    isClientStale({
+      isError: services.isError,
+      updatedAt: services.dataUpdatedAt,
+      now,
+      staleAfterMs: services.data.staleAfterMs,
+    });
   const view = useMemo(
     () => (services.data && stale ? markAllUnknown(services.data) : services.data),
     [services.data, stale],

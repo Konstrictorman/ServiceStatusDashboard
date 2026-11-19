@@ -35,6 +35,8 @@ export interface AppDependencies {
   /** When the poller last completed a round; null before the first one. */
   getLastPollAt: () => Date | null;
   staleAfterMs: number;
+  /** Sent to clients with the services so they follow the server's timing. */
+  pollIntervalMs: number;
   now?: () => Date;
   logger?: FastifyServerOptions['logger'];
 }
@@ -100,7 +102,13 @@ export function buildApp(deps: AppDependencies) {
   app.get('/api/services', { schema: { response: { 200: ServicesResponse } } }, async () => {
     const at = now();
     const services = await deps.repository.listServices(at);
-    return { overall: deriveOverallStatus(services), services, generatedAt: at.toISOString() };
+    return {
+      overall: deriveOverallStatus(services),
+      services,
+      generatedAt: at.toISOString(),
+      staleAfterMs: deps.staleAfterMs,
+      pollIntervalMs: deps.pollIntervalMs,
+    };
   });
 
   app.get(

@@ -1,10 +1,17 @@
 import type { ServicesResponse } from '@ssd/shared';
 
-/** After this long without a successful refresh, cached data is no longer trusted. Matches the server. */
-export const CLIENT_STALE_AFTER_MS = 30_000;
-
-export function isClientStale(opts: { isError: boolean; updatedAt: number; now: number }): boolean {
-  return opts.isError && opts.updatedAt > 0 && opts.now - opts.updatedAt > CLIENT_STALE_AFTER_MS;
+/**
+ * Whether the browser should stop trusting the data it holds. Only when refreshes are failing:
+ * the server already applies staleness to the results it sends. `staleAfterMs` comes from the
+ * server's response, so client and server always use the same threshold.
+ */
+export function isClientStale(opts: {
+  isError: boolean;
+  updatedAt: number;
+  now: number;
+  staleAfterMs: number;
+}): boolean {
+  return opts.isError && opts.updatedAt > 0 && opts.now - opts.updatedAt > opts.staleAfterMs;
 }
 
 /**

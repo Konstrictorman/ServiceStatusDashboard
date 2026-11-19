@@ -34,17 +34,25 @@ describe('formatRelative', () => {
 
 describe('client staleness', () => {
   const now = 100_000;
+  const staleAfterMs = 30_000;
   it('trusts cached data while refreshes succeed or the data is recent', () => {
-    expect(isClientStale({ isError: false, updatedAt: 0 + 1, now })).toBe(false);
-    expect(isClientStale({ isError: true, updatedAt: now - 10_000, now })).toBe(false);
+    expect(isClientStale({ isError: false, updatedAt: 1, now, staleAfterMs })).toBe(false);
+    expect(isClientStale({ isError: true, updatedAt: now - 10_000, now, staleAfterMs })).toBe(
+      false,
+    );
   });
-  it('distrusts cached data after 30s of failed refreshes', () => {
-    expect(isClientStale({ isError: true, updatedAt: now - 31_000, now })).toBe(true);
+  it('distrusts cached data once failed refreshes outlast the server-provided threshold', () => {
+    expect(isClientStale({ isError: true, updatedAt: now - 31_000, now, staleAfterMs })).toBe(true);
+    expect(
+      isClientStale({ isError: true, updatedAt: now - 11_000, now, staleAfterMs: 10_000 }),
+    ).toBe(true);
   });
   it('marks every service unknown', () => {
     const data: ServicesResponse = {
       overall: 'operational',
       generatedAt: '2026-11-19T14:10:00.000Z',
+      staleAfterMs: 30_000,
+      pollIntervalMs: 10_000,
       services: [
         {
           id: 'ai',

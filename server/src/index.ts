@@ -16,6 +16,7 @@ const repository = new InMemoryStatusRepository({
 const app = buildApp({
   repository,
   staleAfterMs: config.staleAfterMs,
+  pollIntervalMs: config.pollIntervalMs,
   // Called per request, after `poller` below is initialized.
   getLastPollAt: () => poller.lastCompletedAt,
   logger: {

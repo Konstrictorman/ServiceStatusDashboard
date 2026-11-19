@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import { REFRESH_INTERVAL_MS } from '../config';
 import { fetchEvents, fetchServices } from './client';
 
-export const POLL_INTERVAL_MS = 15_000;
 export const EVENTS_LIMIT = 50;
 
 /**
@@ -12,7 +12,7 @@ export function useServices() {
   return useQuery({
     queryKey: ['services'],
     queryFn: ({ signal }) => fetchServices(signal),
-    refetchInterval: POLL_INTERVAL_MS,
+    refetchInterval: REFRESH_INTERVAL_MS,
   });
 }
 
@@ -20,6 +20,6 @@ export function useEvents() {
   return useQuery({
     queryKey: ['events', EVENTS_LIMIT],
     queryFn: ({ signal }) => fetchEvents(EVENTS_LIMIT, signal),
-    refetchInterval: POLL_INTERVAL_MS,
+    refetchInterval: REFRESH_INTERVAL_MS,
   });
 }

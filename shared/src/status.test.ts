@@ -42,6 +42,8 @@ describe('ServicesResponse schema', () => {
     const payload = {
       overall: 'down',
       generatedAt: '2026-11-19T14:10:05.000Z',
+      staleAfterMs: 30_000,
+      pollIntervalMs: 10_000,
       services: [
         {
           id: 'payments',
@@ -60,6 +62,8 @@ describe('ServicesResponse schema', () => {
     const payload = {
       overall: 'broken',
       generatedAt: '2026-11-19T14:10:05.000Z',
+      staleAfterMs: 30_000,
+      pollIntervalMs: 10_000,
       services: [],
     };
     expect(ServicesResponse.safeParse(payload).success).toBe(false);

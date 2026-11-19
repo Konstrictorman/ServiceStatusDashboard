@@ -38,6 +38,13 @@ export const ServicesResponse = z.object({
   overall: ServiceStatusValue,
   services: z.array(ServiceStatus),
   generatedAt: z.iso.datetime(),
+  /**
+   * Server timing settings, sent so the client follows the server instead of keeping its own copy
+   * (single source of truth). Results older than `staleAfterMs` must be treated as "unknown".
+   */
+  staleAfterMs: z.number().int().positive(),
+  /** How often the server checks every service. */
+  pollIntervalMs: z.number().int().positive(),
 });
 export type ServicesResponse = z.infer<typeof ServicesResponse>;
 
