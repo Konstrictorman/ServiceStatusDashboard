@@ -3,7 +3,8 @@ import { z } from 'zod';
 const EnvSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   HOST: z.string().min(1).default('0.0.0.0'),
-  PORT: z.coerce.number().int().min(1).max(65535).default(3000),
+  // 3100 rather than the crowded 3000 to avoid clashing with other local dev servers.
+  PORT: z.coerce.number().int().min(1).max(65535).default(3100),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']).default('info'),
   /** How often the poller checks every service. */
   POLL_INTERVAL_MS: z.coerce.number().int().min(1_000).default(10_000),
